@@ -1,0 +1,23 @@
+<html>
+<head>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.4/handlebars.min.js"></script>
+	<script type="text/javascript" src="http://backbonejs.org/backbone-min.js"></script>
+	<script type="text/javascript" src="/js/socket.io.js"></script>
+	<script type="text/javascript" src="/js/main.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:600,700,400,300' rel='stylesheet' type='text/css'>
+	<link type="text/css" rel="stylesheet" href="/css/style.css" />
+</head>
+<body></body>
+<script id="category-template" type="text/x-handlebars-template">
+    <div class="categoryColumn">
+        <h4>{{category}}</h4>
+        <div class="createTodoRow">
+            <textarea class="createTodoText"></textarea>
+            <input type="button" value="+" class="createTodoButton"></input>
+        </div>
+        <ul></ul>
+    </div>
+</script>
+</html>

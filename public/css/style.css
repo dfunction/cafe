@@ -1,0 +1,102 @@
+*, *:before, *:after { 
+    box-sizing: border-box; 
+}
+body {
+    background-color: #9b59b6;
+    font-family: 'Open Sans', sans-serif;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.categoryColumn {
+    width: 33.33%;
+    height: 100%;
+    float: left;
+}
+.categoryColumn h4 {
+    font-size: 60px;
+    font-weight: 600;
+    text-transform: lowercase;
+    margin: 0;
+    padding: 32px 32px 0 32px;
+}
+.categoryColumn:nth-of-type(1) {
+    background-color: #e67e22;
+}
+.categoryColumn:nth-of-type(1) h4 {
+    color: #d35400; 
+}
+.categoryColumn:nth-of-type(2) {
+    background-color: #3498db;
+}
+.categoryColumn:nth-of-type(2) h4 {
+    color: #2980b9; 
+}
+.categoryColumn:nth-of-type(3) {
+    background-color: #9b59b6;
+}
+.categoryColumn:nth-of-type(3) h4 {
+    color: #8e44ad; 
+}
+.categoryColumn ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.categoryColumn li {
+    transition: background-color 0.4s ease;
+    color: #fff;
+    font-size: 30px;
+    font-weight: 300;
+    background-color: transparent;
+    padding: 16px 32px;
+}
+.categoryColumn li.toRemove {
+    transition: background-color 0.4s ease;
+    background-color: #e74c3c;
+}
+.createTodoRow {
+    display: none;
+}
+.categoryColumn:nth-of-type(1) .createTodoRow {
+    background-color: #d35400;
+}
+.categoryColumn:nth-of-type(2) .createTodoRow {
+    background-color: #2980b9;
+}
+.categoryColumn:nth-of-type(3) .createTodoRow {
+    background-color: #8e44ad;
+}
+.createTodoRow textarea {
+    box-sizing: border-box; 
+    font-family: 'Open Sans', sans-serif;
+    font-size: 30px;
+    font-weight: 300;
+    color: #fff;
+    background-color: transparent;
+    padding: 16px 8px 0px 32px;
+    width: 70%;
+    height: 128px;
+    border: 0;
+    float: left;
+    -webkit-appearance: none;
+    outline: none;
+    resize: none;
+}
+.createTodoRow input[type=button] {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 56px;
+    line-height: 128px;
+    font-weight: 600;
+    color: #27ae60;
+    background-color: #2ecc71;
+    width: 30%;
+    height: 128px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    -webkit-appearance: none;
+    outline: none;
+    resize: none;
+}

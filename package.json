@@ -1,0 +1,9 @@
+{
+  "name": "cafe",
+  "dependencies": {
+    "ejs": "^1.0.0",
+    "express": "3.x",
+    "jsonfile": "^1.2.0",
+    "socket.io": "^1.0.6"
+  }
+}
