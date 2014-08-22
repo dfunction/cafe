@@ -6,11 +6,12 @@ var Todo = Backbone.Model.extend({
     urlRoot: "/todos",
     category: null,
     content: null,
-    idAttribute: "id",
+    idAttribute: "_id",
     initialize: function(options) {
         this.category = options.category;
         this.content = options.content;
         this.view = new TodoView({ model: this });
+        this.bind('destroy', this.sync, this);
     }
 });
 
@@ -42,7 +43,7 @@ var TodoView = Backbone.View.extend({
         });
     },
     remove: function() {
-        this.view.$el.remove()
+        this.view.$el.remove();
     }
 });
 
@@ -89,7 +90,7 @@ var TodosView = Backbone.View.extend({
             });
         });
         $('.createTodoRow textarea').keyup(function(event) {
-            if (event.keyCode === 13) { 
+            if (event.keyCode === 13) {
                 var text = $(this).val().slice(0, -1);
                 var category = $(this).parent().parent().find('h4').html();
                 createTodo(text, category);
@@ -97,7 +98,7 @@ var TodosView = Backbone.View.extend({
                     $(this).find('textarea').val('');
                 });
             }
-        }); 
+        });
     },
     render: function() {
         var self = this;

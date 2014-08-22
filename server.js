@@ -1,80 +1,77 @@
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
-var jf = require('jsonfile');
 var io = require('socket.io')(http);
+var mongoose = require('mongoose');
 
 app.use(express.bodyParser());
 app.use(express.static(__dirname + '/public'));
 
 // Data
 
-var file = './data.json';
-var todosDB = jf.readFileSync(file);
-var nextId = 0;
+var local_database_name = 'cafe';
+var local_database_uri  = 'mongodb://localhost/' + local_database_name
+var database_uri = process.env.MONGOLAB_URI || local_database_uri
+mongoose.connect(database_uri);
 
-setInterval(function() {
-    jf.writeFileSync(file, todosDB);
-}, 1000);
-
+var Todo = mongoose.model('Todo', { category: String, content: String });
 // Routes
 
 app.get('/todos', function(req, res) {
   var todos = [];
-  todosDB.forEach(function(todo, i, array) {
-    if (todo != null) {
-      todos.push(todo);
-    }
-  });
-  res.send(todos);
-  console.log('get', todosDB);
+  Todo.find({}, function(err, todos) {
+    res.send(todos);
+  })
 });
 
 app.put('/todos', function(req, res) {
-  var todo = req.body;
-  var id = nextId++;
-  todosDB[id] = todo;
-  todosDB[id].id = id;
-  res.send({ id: id });
-  sendPullRequest();
+  var newTodo = new Todo(req.body);
+  newTodo.save(function(err, product) {
+    res.send({ id: product._id });
+    sendPullRequest();
+  });
 });
 
 app.post('/todos', function(req, res) {
-  var todo = req.body;
-  var id = nextId++;
-  todosDB[id] = todo;
-  todosDB[id].id = id;
-  res.send({ id: id });
-  sendPullRequest();
+  var newTodo = new Todo(req.body);
+  newTodo.save(function(err, product) {
+    res.send({ id: product._id });
+    sendPullRequest();
+  });
 });
 
 app.delete('/todos', function(req, res) {
-  todosDB = [];
-  res.send();
-  sendPullRequest();
+  Todo.remove({}, function() {
+    res.send();
+    sendPullRequest();
+  });
 });
 
 app.get('/todos/:id', function(req, res) {
-  res.send(todosDB[req.params.id]);
+  Todo.findById(req.params.id, function(err, todo) {
+      res.send(todo);
+  });
 });
 
 app.put('/todos/:id', function(req, res) {
-  todosDB[req.params.id] = req.param('todo');
-  res.send();
-  sendPullRequest();
+  Todo.update({_id: req.params.id}, req.param('todo'), function() {
+    res.send();
+    sendPullRequest();
+  });
 });
 
 app.post('/todos/:id', function(req, res) {
-  todosDB[req.params.id] = req.param('todo');
-  res.send();
-  sendPullRequest();
+  Todo.update({_id: req.params.id}, req.param('todo'), function() {
+    res.send();
+    sendPullRequest();
+  });
 });
 
 app.delete('/todos/:id', function(req, res) {
-  delete todosDB[req.params.id];
-  console.log('delete', req.params, todosDB);
-  res.send();
-  sendPullRequest();
+  Todo.remove({_id: req.params.id}, function(err) {
+    res.send();
+    sendPullRequest();
+  });
 });
 
 // HTTP server
