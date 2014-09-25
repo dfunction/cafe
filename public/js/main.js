@@ -76,16 +76,15 @@ var TodosView = Backbone.View.extend({
         $('body').append(this.$topay);
 
         $('.categoryColumn h4').click(function(event) {
-            $('.createTodoRow').not($(this).siblings('.createTodoRow')).stop().slideUp(function() {
-                $(this).find('textarea').val('');
-            });
-            $(this).siblings('.createTodoRow').stop().slideToggle();
+            $('.createTodoRow').not($(this).siblings('.createTodoRow')).hide();
+            $(this).find('textarea').val('');
+            $(this).siblings('.createTodoRow').toggle();
         });
         $('.createTodoRow input[type=button]').click(function() {
             var text = $(this).siblings('textarea').val();
             var category = $(this).parent().parent().find('h4').html();
             createTodo(text, category);
-            $(this).parent().stop().slideUp(function() {
+            $(this).parent().stop().hide(function() {
                 $(this).find('textarea').val('');
             });
         });
@@ -94,7 +93,7 @@ var TodosView = Backbone.View.extend({
                 var text = $(this).val().slice(0, -1);
                 var category = $(this).parent().parent().find('h4').html();
                 createTodo(text, category);
-                $(this).parent().stop().slideUp(function() {
+                $(this).parent().stop().hide(function() {
                     $(this).find('textarea').val('');
                 });
             }
